@@ -1,0 +1,166 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Plateforme QCM</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-circle">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <path d="M22 10.5h-6.7V4c0-.4-.3-.8-.8-.8h-2c-.4 0-.8.3-.8.8v6.5H5.7L12 1l7 9.5z"/>
+                    <path d="M2 14v6c0 .6.4 1 1 1h18c.6 0 1-.4 1-1v-6"/>
+                </svg>
+            </div>
+            <h1>Plateforme QCM</h1>
+            <p>Système de Gestion des Examens</p>
+        </div>
+
+        <!-- Afficher les messages d'erreur -->
+        <c:if test="${not empty error}">
+            <div class="alert alert-error">
+                <strong>Erreur :</strong> ${error}
+            </div>
+        </c:if>
+
+        <c:if test="${not empty success}">
+            <div class="alert alert-success">
+                <strong>Succès :</strong> ${success}
+            </div>
+        </c:if>
+
+        <div class="form-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="login">Connexion</button>
+                <button class="tab-btn" data-tab="register">S&apos;inscrire</button>
+            </div>
+
+            <!-- Tab Connexion -->
+            <div class="tab-content active" id="login">
+                <h2>Connexion</h2>
+                <form action="${pageContext.request.contextPath}/login" method="POST" id="loginForm">
+                    <input type="hidden" name="action" value="login">
+                    
+                    <div class="form-group">
+                        <label for="email">Adresse email</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                            <input type="email" id="email" name="email" placeholder="votre.email@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Mot de passe (N° Étudiant)</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            <input type="password" id="password" name="password" placeholder="Votre numéro d&apos;étudiant" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                </form>
+
+                <p class="signup-link">Pas encore de compte ? <a href="#" class="link" onclick="switchTab('register'); return false;">S&apos;inscrire</a></p>
+
+                <div class="demo-section">
+                    <h3>Comptes de démonstration :</h3>
+                    <div class="demo-item">
+                        <span class="demo-icon">👨‍💼</span>
+                        <span>Admin: admin@qcm.com / admin123</span>
+                    </div>
+                    <div class="demo-item">
+                        <span class="demo-icon">👨‍🎓</span>
+                        <span>Étudiant: n&apos;importe quel email / n&apos;importe quel mot de passe</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Inscription -->
+            <div class="tab-content" id="register">
+                <h2>Créer un compte</h2>
+                <p class="subtitle">Inscrivez-vous pour passer vos examens</p>
+                <form action="${pageContext.request.contextPath}/login" method="POST" id="registerForm">
+                    <input type="hidden" name="action" value="register">
+                    
+                    <div class="form-group">
+                        <label for="student-id">Numéro d&apos;étudiant</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                                <path d="M12 6v6l4.25 2.53"/>
+                            </svg>
+                            <input type="text" id="student-id" name="studentId" placeholder="Ex: ETU001" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-name">Nom</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            <input type="text" id="reg-name" name="name" placeholder="Votre nom" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-firstname">Prénoms</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            <input type="text" id="reg-firstname" name="firstname" placeholder="Vos prénoms" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-email">Adresse email</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                            <input type="email" id="reg-email" name="email" placeholder="votre.email@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="level">Niveau d&apos;études</label>
+                        <select id="level" name="level" required>
+                            <option value="">Sélectionner un niveau</option>
+                            <option value="L1">Licence 1</option>
+                            <option value="L2">Licence 2</option>
+                            <option value="L3">Licence 3</option>
+                            <option value="M1">Master 1</option>
+                            <option value="M2">Master 2</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Créer un compte</button>
+                </form>
+
+                <p class="signup-link">Vous avez déjà un compte ? <a href="#" class="link" onclick="switchTab('login'); return false;">Se connecter</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="theme-toggle">
+        <button id="themeBtn" onclick="toggleTheme()">🌙</button>
+    </div>
+
+    <script src="${pageContext.request.contextPath}/js/login.js"></script>
+</body>
+</html>
